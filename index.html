@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Picker and PNG Generator</title>
+</head>
+<body>
+    <h1>Color Picker and PNG Generator</h1>
+
+    <label for="colorPicker">Select a Color:</label>
+    <input type="color" id="colorPicker" value="#ff0000"><br>
+
+    <label for="sizeSelector">Select Image Size:</label>
+    <select id="sizeSelector">
+        <option value="16">16x16</option>
+        <option value="32">32x32</option>
+        <option value="64">64x64</option>
+        <!-- Add more sizes here -->
+    </select><br>
+
+    <button id="generateButton">Generate PNG</button>
+
+    <script>
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const color = document.getElementById('colorPicker').value;
+            const selectedSize = document.getElementById('sizeSelector').value;
+            const size = parseInt(selectedSize);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, size, size);
+
+            const a = document.createElement('a');
+            a.href = canvas.toDataURL('image/png');
+            a.download = `color_${size}x${size}.png`;
+            a.click();
+        });
+    </script>
+</body>
+</html>
